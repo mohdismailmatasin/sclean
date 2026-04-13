@@ -3,7 +3,7 @@ set -euo pipefail
 
 BINARY_NAME="sclean"
 INSTALL_DIR="${PREFIX:-/usr/local}/bin"
-REPO="https://github.com/mohdismailmatasin/simple-cleaner-rs.git"
+REPO="https://github.com/mohdismailmatasin/sclean.git"
 TMPDIR=$(mktemp -d)
 
 trap 'rm -rf "$TMPDIR"' EXIT
