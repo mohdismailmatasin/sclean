@@ -15,7 +15,7 @@ A lightweight system cleanup utility for Linux that safely removes temporary fil
 
 ```bash
 # Install
-curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/main/install.sh | sudo sh
+curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/master/install.sh | sudo sh
 
 # Clean everything
 sclean
@@ -32,7 +32,7 @@ sclean --interactive
 ### From Script (Recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/main/install.sh | sudo sh
+curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/master/install.sh | sudo sh
 ```
 
 ### From Source
@@ -135,7 +135,7 @@ sclean includes **44 built-in targets** organized by category:
 ## Uninstallation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/main/uninstall.sh | sudo sh
+curl -fsSL https://raw.githubusercontent.com/mohdismailmatasin/sclean/master/uninstall.sh | sudo sh
 ```
 
 Or remove manually:
