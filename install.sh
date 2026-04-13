@@ -31,16 +31,52 @@ if [ ! -f "${SOURCE_BINARY}" ]; then
     exit 1
 fi
 
+# Check write permission
+if [ ! -w "$(dirname "${INSTALL_DIR}")" ]; then
+    echo "Need sudo to install to ${INSTALL_DIR}..."
+    USE_SUDO=true
+else
+    USE_SUDO=false
+fi
+
+# Check write permission
+if [ ! -w "$(dirname "${INSTALL_DIR}")" ]; then
+    echo "Need sudo to install to ${INSTALL_DIR}..."
+    USE_SUDO=true
+else
+    USE_SUDO=false
+fi
+
 # Install binary
 mkdir -p "${INSTALL_DIR}"
-cp "${SOURCE_BINARY}" "${INSTALL_DIR}/${BINARY_NAME}"
-chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+if [ "$USE_SUDO" = true ]; then
+    sudo cp "${SOURCE_BINARY}" "${INSTALL_DIR}/${BINARY_NAME}"
+    sudo chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+else
+    cp "${SOURCE_BINARY}" "${INSTALL_DIR}/${BINARY_NAME}"
+    chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
+fi
 
 # Generate shell completions
 COMPLETIONS_DIR="${PREFIX:-/usr/local}/share/bash-completion/completions"
 if command -v "${INSTALL_DIR}/${BINARY_NAME}" &>/dev/null; then
     mkdir -p "${COMPLETIONS_DIR}"
-    "${INSTALL_DIR}/${BINARY_NAME}" --completions bash > "${COMPLETIONS_DIR}/${BINARY_NAME}" 2>/dev/null || true
+    if [ "$USE_SUDO" = true ]; then
+        sudo "${INSTALL_DIR}/${BINARY_NAME}" --completions bash > "${COMPLETIONS_DIR}/${BINARY_NAME}" 2>/dev/null || true
+    else
+        "${INSTALL_DIR}/${BINARY_NAME}" --completions bash > "${COMPLETIONS_DIR}/${BINARY_NAME}" 2>/dev/null || true
+    fi
+fi
+
+# Generate shell completions
+COMPLETIONS_DIR="${PREFIX:-/usr/local}/share/bash-completion/completions"
+if command -v "${INSTALL_DIR}/${BINARY_NAME}" &>/dev/null; then
+    mkdir -p "${COMPLETIONS_DIR}"
+    if [ "$USE_SUDO" = true ]; then
+        sudo "${INSTALL_DIR}/${BINARY_NAME}" --completions bash > "${COMPLETIONS_DIR}/${BINARY_NAME}" 2>/dev/null || true
+    else
+        "${INSTALL_DIR}/${BINARY_NAME}" --completions bash > "${COMPLETIONS_DIR}/${BINARY_NAME}" 2>/dev/null || true
+    fi
 fi
 
 echo ""
