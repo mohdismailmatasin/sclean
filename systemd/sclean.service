@@ -1,0 +1,9 @@
+[Unit]
+Description=sclean - System cleanup utility
+Documentation=man:sclean(1)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sclean
+Nice=19
+IOSchedulingClass=idle
